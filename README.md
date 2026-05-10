@@ -5,7 +5,25 @@ Commands to enable secure boot on cachyOS
 # Commands only
 
 
+Enable Setup Mode in BIOS/UEFi
 
+```
+
+systemctl reboot --firmware-setup
+
+sudo pacman -S sbctl
+
+sudo sbctl create-keys
+
+sudo sbctl enroll-keys --microsoft --firmware-builtin
+
+sudo sbctl-batch-sign
+
+sudo sbctl sign -s -o /usr/lib/systemd/boot/efi/systemd-bootx64.efi.signed /usr/lib/systemd/boot/efi/systemd-bootx64.efi
+
+sudo sbctl status
+
+```
 
 # Steps:
 
