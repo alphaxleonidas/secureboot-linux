@@ -65,7 +65,9 @@ Now that sbctl is installed, you have to setup sbctl and enroll your keys to the
     Check if Setup Mode is enabled:
     Terminal window
 
-    ```sudo sbctl status```
+    ```
+    sudo sbctl status
+    ```
 
     Expected Output
     Terminal window
