@@ -5,12 +5,16 @@ Commands to enable secure boot on cachyOS
 # Commands only
 
 
-Enable Setup Mode in BIOS/UEFi
+
 
 ```
 
 systemctl reboot --firmware-setup
 
+```
+To Enable Setup Mode in BIOS/UEFi.
+
+```
 sudo pacman -S sbctl
 
 sudo sbctl create-keys
