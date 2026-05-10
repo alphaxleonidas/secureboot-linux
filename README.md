@@ -4,8 +4,15 @@ Commands to enable secure boot on cachyOS
 
 # Commands only
 
+Pre-setup
+GRUB Boot Manager
 
+If you are using GRUB, run the following command to enable secure boot support on GRUB using CA Keys.
+Terminal window
 
+```
+sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=cachyos --modules="tpm" --disable-shim-lock
+```
 
 ```
 
