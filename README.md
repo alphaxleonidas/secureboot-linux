@@ -1,6 +1,12 @@
 # cachyos-secureboot
 Commands to enable secure boot on cachyOS
 
+# Update interrupted
+
+```
+sudo -i 
+rm -i -v /var/lib/pacman/db.lck
+```
 
 # Commands only
 
