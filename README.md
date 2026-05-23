@@ -44,6 +44,7 @@ sudo sbctl status
 
 # Steps:
 
+[Link to CachyOSWiki](https://wiki.cachyos.org/configuration/secure_boot_setup/)
 
 Enable Setup Mode of Secure Boot in BIOS/UEFI
 
@@ -68,61 +69,61 @@ Open a terminal and run the following command
 
 Now that sbctl is installed, you have to setup sbctl and enroll your keys to the firmware. This process is pretty straightforward, just follow the steps below.
 
-    Check if Setup Mode is enabled:
+Check if Setup Mode is enabled:
     Terminal window
 
     ```
     sudo sbctl status
     ```
 
-    Expected Output
+ Expected Output
     Terminal window
 
     Installed:      ✘ sbctl is not installed
     Setup Mode:     ✘ Enabled
     Secure Boot     ✘ Disabled
 
-    Create your custom Secure Boot keys:
+Create your custom Secure Boot keys:
     Terminal window
 
     ```sudo sbctl create-keys```
 
-    Example of a successful key creation
+ Example of a successful key creation
     Terminal window
 
     Created Owner UUID a9fbbdb7-a05f-48d5-b63a-08c5df45ee70
     Creating secure boot keys...✔
     Secure boot keys created!
 
-    Enroll your keys with Microsoft’s and the OEM firmware’s built-in keys:
+   Enroll your keys with Microsoft’s and the OEM firmware’s built-in keys:
     Terminal window
 
     ```sudo sbctl enroll-keys --microsoft --firmware-builtin```
 
-    Expected output
+Expected output
     Terminal window
 
     Enrolling keys to EFI variables...✔
     Enrolled keys to the EFI variables!
 
-    ASUS Motherboards — Do not use
+ASUS Motherboards — Do not use
     --firmware-builtin
 
     On some ASUS motherboards using the --firmware-builtin flag causes duplicate entries in the EFI key variables (e.g. builtin-db appearing multiple times in Vendor Keys). When activating Secure Boot in the UEFI settings afterwards, the board detects this inconsistent key structure and throws a Secure Boot Violation before the boot manager can load.
 
-    Use only --microsoft on ASUS boards:
+Use only --microsoft on ASUS boards:
     Terminal window
 
     ```sudo sbctl enroll-keys --microsoft```
 
-    If Vendor Keys shows microsoft builtin-db builtin-db ..., the keys need to be re-enrolled. Re-enter Setup Mode in the UEFI (using delete all keys), then run sbctl enroll-keys --microsoft again without --firmware-builtin.
+   If Vendor Keys shows microsoft builtin-db builtin-db ..., the keys need to be re-enrolled. Re-enter Setup Mode in the UEFI (using delete all keys), then run `sbctl enroll-keys --microsoft` again without --firmware-builtin.
 
-    Check the status of sbctl again to make sure that the keys are enrolled and setup mode is disabled:
+   Check the status of sbctl again to make sure that the keys are enrolled and setup mode is disabled:
     Terminal window
 
     ```sudo sbctl status```
 
-    Expected Output
+Expected Output
     Terminal window
 
     Installed:      ✔ sbctl is installed
@@ -131,12 +132,9 @@ Now that sbctl is installed, you have to setup sbctl and enroll your keys to the
     Secure Boot     ✘ Disabled
     Vendor Keys:    microsoft
 
+Signing the Kernel Image and Boot Manager
 
-
-
-    Signing the Kernel Image and Boot Manager
-
-    systemd-boot
+systemd-boot
 
 CachyOS provides sbctl-batch-sign, a script that takes the list of files needed to be signed from sudo sbctl verify and signs them all.
 
@@ -169,9 +167,9 @@ ASUS Motherboards — enabling Secure Boot
 
 Some ASUS motherboards behave differently from other vendors when enabling Secure Boot:
 
-    Use Windows UEFI Mode, not Other OS: The name is misleading this setting simply controls whether Secure Boot is enforced. Setting OS Type to Other OS actively disables Secure Boot on ASUS boards, regardless of any other settings. sbctl status will continue to show Secure Boot: Disabled even after rebooting.
+Use Windows UEFI Mode, not Other OS: The name is misleading this setting simply controls whether Secure Boot is enforced. Setting OS Type to Other OS actively disables Secure Boot on ASUS boards, regardless of any other settings. sbctl status will continue to show Secure Boot: Disabled even after rebooting.
 
-    There is no separate Secure Boot on/off toggle on some ASUS boards. Secure Boot is activated implicitly by selecting Windows UEFI Mode.
+There is no separate Secure Boot on/off toggle on some ASUS boards. Secure Boot is activated implicitly by selecting Windows UEFI Mode.
 
 The correct ASUS BIOS configuration to activate Secure Boot in this case is:
 
@@ -204,7 +202,8 @@ Setup Mode:     ✓ Disabled
 Secure Boot:    ✓ Enabled
 Vendor Keys:    microsoft
 
-bootctl
+```bootctl```
+
 System:
       Firmware: UEFI 2.80 (INSYDE Corp. 28724.16435)
  Firmware Arch: x64
